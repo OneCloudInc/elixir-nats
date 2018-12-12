@@ -29,7 +29,7 @@ defmodule Nats.Connection do
     end)
   end
 
-  # defp debug_log(what), do: _log(:debug, what)
+  #  defp debug_log(what), do: _log(:debug, what)
   defp err_log(what), do: _log(:error, what)
   defp info_log(what), do: _log(:info, what)
 
@@ -61,6 +61,8 @@ defmodule Nats.Connection do
             sender = &state.send_fn.(connected, &1)
             writer_pid = spawn_link(fn -> write_loop(sender, [], 0, :infinity) end)
             %{state | writer_pid: writer_pid}
+          else
+            state
           end
 
         {:ok, state}
